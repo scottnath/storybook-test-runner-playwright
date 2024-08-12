@@ -1,5 +1,6 @@
 import type { TestRunnerConfig } from '@storybook/test-runner';
 import { injectAxe, checkA11y } from 'axe-playwright';
+import { playAudit } from 'playwright-lighthouse';
 
 const config: TestRunnerConfig = {
   // Hook that is executed before the test runner starts running tests
@@ -23,6 +24,10 @@ const config: TestRunnerConfig = {
       detailedReportOptions: {
         html: true,
       },
+    });
+    await playAudit({
+      page: page,
+      port: 9222,
     });
   },
 };
